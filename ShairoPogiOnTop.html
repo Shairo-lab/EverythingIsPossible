@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Questionnaire Form</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(to right, #141e30, #243b55);
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      background: rgba(255,255,255,0.05);
+      border-radius: 12px;
+      box-shadow: 0 0 15px #000;
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    .question-group {
+      display: none;
+      animation: fadeIn 1s ease-in-out;
+    }
+    .question-group.active {
+      display: block;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+    }
+    textarea {
+      width: 100%;
+      padding: 10px;
+      border-radius: 8px;
+      border: none;
+      resize: vertical;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+    }
+    button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #00b894;
+      color: #fff;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background: #00cec9;
+    }
+    .hidden {
+      display: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+ .notification {
+  position: fixed;
+  top: -100px; /* hidden above view */
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #222;
+  color: #fff;
+  padding: 15px 25px;
+  border-radius: 10px;
+  font-size: 16px;
+  z-index: 9999;
+  opacity: 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.4);
+  transition: top 0.5s ease, opacity 0.5s ease;
+}
+
+.notification.show {
+  top: 20px;        /* visible position */
+  opacity: 1;
+}
+
+.subtitle {
+  font-size: 1rem;
+  color: #ccc;
+  text-shadow: 0 0 5px #aaa;
+  margin-top: -8px;
+  margin-bottom: 20px;
+  font-style: italic;
+  text-align: center;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>📝 Personal Reflection Questionnaire</h2>
+<p class="subtitle">Everything you put stays hidden.</p>
+
+<div id="notification" class="notification"></div>
+
+    <div id="nameSection">
+      <label for="name">Enter your name to begin:</label>
+      <input type="text" id="name" placeholder="Your name here...">
+      <button onclick="startForm()">Start</button>
+    </div>
+
+    <form id="questionForm" class="hidden">
+      <!-- Light & Fun Questions -->
+      <div class="question-group" id="group1">
+        <h3>Light & Fun Questions</h3>
+        <label>1. What's your favorite memory from childhood?</label>
+        <textarea name="q1"></textarea>
+        <label>2. Do you believe in love at first sight?</label>
+        <textarea name="q2"></textarea>
+        <label>3. What's something weird that you secretly enjoy?</label>
+        <textarea name="q3"></textarea>
+        <label>4. If you could live anywhere in the world, where would it be?</label>
+        <textarea name="q4"></textarea>
+        <label>5. What's your biggest guilty pleasure?</label>
+        <textarea name="q5"></textarea>
+        <button type="button" onclick="nextGroup()">Next</button>
+      </div>
+
+      <!-- Deep Questions -->
+      <div class="question-group" id="group2">
+        <h3>Deep Questions</h3>
+        <label>6. What’s one thing you’ve never told anyone?</label>
+        <textarea name="q6"></textarea>
+        <label>7. What’s your biggest fear that no one knows?</label>
+        <textarea name="q7"></textarea>
+        <label>8. Have you ever had your heart broken? How did you cope?</label>
+        <textarea name="q8"></textarea>
+        <label>9. If you died today, what’s one thing you’d regret not doing?</label>
+        <textarea name="q9"></textarea>
+        <label>10. What moment in life changed you the most?</label>
+        <textarea name="q10"></textarea>
+        <button type="button" onclick="nextGroup()">Next</button>
+      </div>
+
+      <!-- Relationship-Oriented Questions -->
+      <div class="question-group" id="group3">
+        <h3>Relationship-Oriented</h3>
+        <label>11. What do you value most in a friendship or relationship?</label>
+        <textarea name="q11"></textarea>
+        <label>12. What’s your love language?</label>
+        <textarea name="q12"></textarea>
+        <label>13. Have you ever been truly in love?</label>
+        <textarea name="q13"></textarea>
+        <label>14. What’s something small someone did that meant a lot to you?</label>
+        <textarea name="q14"></textarea>
+        <label>15. How do you show someone you care about them?</label>
+        <textarea name="q15"></textarea>
+        <button type="button" onclick="nextGroup()">Next</button>
+      </div>
+
+      <!-- Reflection -->
+      <div class="question-group" id="group4">
+        <h3>💔 Deeper & Reflective</h3>
+        <label>16. What made you realize it was time to end it?</label>
+        <textarea name="q16"></textarea>
+        <label>17. Do you think you've fully moved on?</label>
+        <textarea name="q17"></textarea>
+        <label>18. What did you learn from that relationship?</label>
+        <textarea name="q18"></textarea>
+        <label>19. Was there something you wish you or they had done differently?</label>
+        <textarea name="q19"></textarea>
+        <button type="button" onclick="nextGroup()">Next</button>
+      </div>
+
+      <!-- Moving Forward -->
+      <div class="question-group" id="group5">
+        <h3>❤️ Now & Moving Forward</h3>
+        <label>20. Do you still believe in love after everything?</label>
+        <textarea name="q20"></textarea>
+        <label>21. What are you looking for in your next relationship?</label>
+        <textarea name="q21"></textarea>
+        <label>22. What kind of person do you not want to date again?</label>
+        <textarea name="q22"></textarea>
+        <label>23. How should someone earn your trust now?</label>
+        <textarea name="q23"></textarea>
+        <label>Bonus. Who is your current crush?</label>
+        <textarea name="Bonus">Example:ShairoPuge</textarea>
+        <button type="button" onclick="submitForm()">Finish</button>
+      </div>
+    </form>
+  </div>
+
+<script>
+  const webhookURL = "https://discord.com/api/webhooks/1390310023107707001/EEj17cUfjQW3OLejVkfexlzvVkMbjCHjBtqvuKsvPSUFP0DvsaonplSuNaTaZjahmMY-";
+  let currentGroup = 0;
+  const groups = document.querySelectorAll('.question-group');
+
+  function startForm() {
+    const name = document.getElementById('name').value.trim();
+    if (!name) {
+  showNotification('❗Please enter your name to begin.');
+  return;
+}
+    document.getElementById('nameSection').classList.add('hidden');
+    document.getElementById('questionForm').classList.remove('hidden');
+    groups[currentGroup].classList.add('active');
+  }
+
+  function nextGroup() {
+  const currentGroupDiv = groups[currentGroup];
+  const textareas = currentGroupDiv.querySelectorAll("textarea");
+
+  let allFilled = true;
+  for (let textarea of textareas) {
+    if (textarea.value.trim() === "") {
+      allFilled = false;
+      break;
+    }
+  }
+
+  if (!allFilled) {
+    showNotification("❗Please answer all questions before moving on.");
+    return;
+  }
+
+  if (currentGroup < groups.length - 1) {
+    currentGroupDiv.classList.remove('active');
+    currentGroup++;
+    groups[currentGroup].classList.add('active');
+  }
+}
+
+  function submitForm() {
+    const name = document.getElementById('name').value.trim();
+    const form = document.getElementById('questionForm');
+    const data = new FormData(form);
+    let content = `**📝 Submission from ${name}:**\n\n`;
+
+    for (let [key, value] of data.entries()) {
+      content += `**${key.toUpperCase()}**: ${value || "_(No Answer)_"}\n`;
+    }
+
+    // Truncate if over Discord’s 2000-char limit
+    if (content.length > 1900) {
+      content = content.substring(0, 1900) + "\n...(truncated)";
+    }
+
+    fetch(webhookURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ content })
+    })
+    .then(response => {
+      if (response.ok) {
+        showNotification("✅ Your answers have been sent successfully!");
+setTimeout(() => location.reload(), 3000);
+      } else {
+        return response.text().then(text => {
+          throw new Error(`Failed: ${text}`);
+        });
+      }
+    })
+    .catch(err => {
+      showNotification("❌ Error sending to Discord.");
+    });
+  }
+  
+  function showNotification(message, duration = 3000) {
+  const notification = document.getElementById('notification');
+  notification.textContent = message;
+  notification.classList.add('show');
+
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, duration);
+}
+</script>
+</body>
+</html>
